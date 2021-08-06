@@ -8,6 +8,8 @@ public class Player : MonoBehaviour{
     private bool isJumping;
 
     public Animator anim;
+    public GameObject bulletPrefab;
+    public Transform bulletPoint;
 
     public float speed;
     public float jumpForce;
@@ -27,6 +29,11 @@ public class Player : MonoBehaviour{
             rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             anim.SetBool("jumping", true);
             isJumping = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Instantiate(bulletPrefab, bulletPoint.position, bulletPoint.rotation);
         }
         
     }
