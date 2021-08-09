@@ -13,6 +13,7 @@ public class Player : MonoBehaviour{
 
     public float speed;
     public float jumpForce;
+    public int health;
 
 
     // Start is called before the first frame update
@@ -24,17 +25,32 @@ public class Player : MonoBehaviour{
     // Update is called once per frame
     void Update(){
 
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            OnShoot();
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+        {
+            OnJump();
+        }        
+                     
+    }
+
+    public void OnShoot()
+    {
+        Instantiate(bulletPrefab, bulletPoint.position, bulletPoint.rotation);
+    }
+
+    public void OnJump()
+    {
+        if (!isJumping)
         {
             rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             anim.SetBool("jumping", true);
             isJumping = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            Instantiate(bulletPrefab, bulletPoint.position, bulletPoint.rotation);
-        }
         
     }
 
@@ -51,5 +67,15 @@ public class Player : MonoBehaviour{
             isJumping = false;
         }
         
+    }
+
+    public void OnHit(int dmg)
+    {
+        health-=  dmg;
+
+        if(health <= 0)
+        {
+            GameController.instance.ShowGameOver();
+        }
     }
 }
