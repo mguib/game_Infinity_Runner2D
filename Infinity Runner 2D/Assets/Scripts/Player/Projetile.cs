@@ -7,6 +7,8 @@ public class Projetile : MonoBehaviour
 
     private Rigidbody2D rig;
 
+    public GameObject expPrefab;
+
     public float speed;
     public int damage;
 
@@ -27,4 +29,20 @@ public class Projetile : MonoBehaviour
     {
         
     }
+
+    public void OnHit()
+    {
+        GameObject e = Instantiate(expPrefab, transform.position, transform.rotation);
+        Destroy(e, 1f);
+        Destroy(gameObject);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 3){
+            OnHit();
+        }
+    }
+
+
 }

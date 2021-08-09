@@ -31,7 +31,7 @@ public class Player : MonoBehaviour{
             isJumping = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Instantiate(bulletPrefab, bulletPoint.position, bulletPoint.rotation);
         }
